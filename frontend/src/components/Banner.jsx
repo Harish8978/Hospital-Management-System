@@ -81,7 +81,7 @@ const Banner = () => {
                         </div>
                     </div>
                     <div className={b.rightImageSection}>
-                        <div className-={b.imageContainer}>
+                        <div className={b.imageContainer}>
                             <div className={b.imageFrame}>
                                 <img src={banner} alt="banner" className={b.image}/>
                             </div>

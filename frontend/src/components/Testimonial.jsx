@@ -108,51 +108,51 @@ const Testimonial = () => {
         key={i}
         className={
           i < rating
-            ? testimonialStyles.activeStar
-            : testimonialStyles.inactiveStar
+            ? t.activeStar
+            : t.inactiveStar
         }
       >
-        <Star className={testimonialStyles.star} />
+        <Star className={t.star} />
       </span>
     ));
 
   const TestimonialCard = ({ testimonial, direction }) => (
     <div
-      className={`${testimonialStyles.testimonialCard} ${
+      className={`${t.testimonialCard} ${
         direction === "left"
-          ? testimonialStyles.leftCardBorder
-          : testimonialStyles.rightCardBorder
+          ? t.leftCardBorder
+          : t.rightCardBorder
       }`}
     >
-      <div className={testimonialStyles.cardContent}>
+      <div className={t.cardContent}>
         <img
           src={testimonial.image}
           alt={testimonial.name}
-          className={testimonialStyles.avatar}
+          className={t.avatar}
         />
-        <div className={testimonialStyles.textContainer}>
-          <div className={testimonialStyles.nameRoleContainer}>
+        <div className={t.textContainer}>
+          <div className={t.nameRoleContainer}>
             <div>
               <h4
-                className={`${testimonialStyles.name} ${
+                className={`${t.name} ${
                   direction === "left"
-                    ? testimonialStyles.leftName
-                    : testimonialStyles.rightName
+                    ? t.leftName
+                    : t.rightName
                 }`}
               >
                 {testimonial.name}
               </h4>
-              <p className={testimonialStyles.role}>{testimonial.role}</p>
+              <p className={t.role}>{testimonial.role}</p>
             </div>
-            <div className={testimonialStyles.starsContainer}>
+            <div className={t.starsContainer}>
               {renderStars(testimonial.rating)}
             </div>
           </div>
 
-          <p className={testimonialStyles.quote}>"{testimonial.text}"</p>
+          <p className={t.quote}>"{testimonial.text}"</p>
 
           {/* Stars on small screens beneath text */}
-          <div className={testimonialStyles.mobileStarsContainer}>
+          <div className={t.mobileStarsContainer}>
             {renderStars(testimonial.rating)}
           </div>
         </div>
@@ -177,8 +177,8 @@ const Testimonial = () => {
                 </div>
                 <div  onTouchStart={()=>setIsPaused(true)} onTouchEnd={()=>setIsPaused(false)} ref={scrollRefLeft} className={t.scrollContainer}>
                     {
-                      [...leftTestimonials,...leftTestimonials].map((t,i)=>(
-                        <Testimonial key={`L-${i}`} testimonial={t} direction="left"/>
+                      [...leftTestimonials,...leftTestimonials].map((item,i)=>(
+                        <TestimonialCard key={`L-${i}`} testimonial={item} direction="left"/>
                       ))
                     }
                 </div>
@@ -187,15 +187,15 @@ const Testimonial = () => {
                     <div className={`${t.columnHeader} ${t.rightColumnHeader}`}>
                         🧑‍💼 Patients
                     </div>
-            </div>
             <div ref={scrollRefRight} className={t.scrollContainer} onTouchStart={()=>setIsPaused(true)}
             onTouchEnd={()=>setIsPaused(false)}>
               {
-                [...rightTestimonials,...rightTestimonials].map((t,i)=>(
-                  <Testimonial key={`R-${i}`} testimonial={t} direction="right"/>
+                [...rightTestimonials,...rightTestimonials].map((item,i)=>(
+                  <TestimonialCard key={`R-${i}`} testimonial={item} direction="right"/>
                 ))
               }
 
+            </div>
             </div>
         </div>
         <style>{t.animationStyles}</style>
