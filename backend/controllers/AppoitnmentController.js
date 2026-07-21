@@ -220,9 +220,9 @@ export const getAppointmentsByPatient = async(req,res)=>{
       gender: gender ? String(gender) : "",
       date: String(date),
       time: String(time),
-      fees: numericFee,
+      fees: numericFees,
       status: "Pending",
-      payment: { method: paymentMethod === "Cash" ? "Cash" : "Online", status: "Pending", amount: numericFee },
+      payment: { method: paymentMethod === "Cash" ? "Cash" : "Online", status: "Pending", amount: numericFees },
       notes: notes || "",
       createdBy: clerkUserId,
       owner: resolvedOwner,
@@ -230,7 +230,7 @@ export const getAppointmentsByPatient = async(req,res)=>{
     };
 
     // Free appointment
-    if (numericFee === 0) {
+    if (numericFees === 0) {
       const created = await Appointment.create({
         ...base,
         status: "Confirmed",
@@ -245,7 +245,7 @@ export const getAppointmentsByPatient = async(req,res)=>{
       const created = await Appointment.create({
         ...base,
         status: "Pending",
-        payment: { method: "Cash", status: "Pending", amount: numericFee },
+        payment: { method: "Cash", status: "Pending", amount: numericFees },
       });
       return res.status(201).json({ success: true, appointment: created, checkoutUrl: null });
     }
@@ -272,7 +272,7 @@ export const getAppointmentsByPatient = async(req,res)=>{
             price_data: {
               currency: "inr",
               product_data: { name: `Appointment - ${String(patientName).slice(0, 40)}` },
-              unit_amount: Math.round(numericFee * 100),
+              unit_amount: Math.round(numericFees * 100),
             },
             quantity: 1,
           },
@@ -540,7 +540,7 @@ export const getAppointmentsByDoctor = async(req,res)=>{
             appointments:items,
             meta:{page,limit,total,count:items.length}
         })
-    }catch(err){
+    }catch(error){
         console.error("GetAppointmentByDoctorPaymentError",error.message || error);
         return res.status(500).json({
             success:false,
