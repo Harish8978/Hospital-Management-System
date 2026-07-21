@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { doctorsPageStyles as d } from '../assets/dummyStyles'
-import { ChevronRight, CircleChevronDown, CircleChevronUp, Medal, MousePointer, Search, X } from 'lucide-react';
+import { ChevronRight, CircleChevronDown, CircleChevronUp, Medal,  Search, X,MousePointer2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const DoctorsPage = () => {
@@ -256,7 +256,7 @@ const DoctorsPage = () => {
                                     </Link>
                                 ) : (
                                     <button disabled className={d.notAvailableButton}>
-                                        <MousePointer20ff className={d.notAvailableIcon}/>
+                                        <MousePointer2 className={d.notAvailableIcon}/>
                                         Not Available
                                     </button>
                                 )

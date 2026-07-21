@@ -110,14 +110,12 @@ const NavBar = () => {
                         </div>
                         {/* Right Side nav */}
                         <div className={navbarStyles.rightContainer}>
-                                <SignOutButton>
                                     <Link to="/doctor-admin/login" className={navbarStyles.doctorAdminButton}>
                                         <User className={navbarStyles.doctorAdminIcon}/>
                                         <span className={navbarStyles.doctorAdminText}>
                                             Doctor Admin
                                         </span>
                                     </Link>
-                                </SignOutButton>
                                 {/* Patient login */}
                                 {
                                     !isSignedIn?
@@ -151,12 +149,9 @@ const NavBar = () => {
                                 </Link>
                             )
                         })}
-                        <SignOutButton>
-                            <Link to={'/doctor-admin/login'} className={navbarStyles.mobileDoctorAdminButton} onClick={()=>setIsOpen(false)}>
-                                Doctor Admin
-                            </Link>
-                           
-                        </SignOutButton>
+                        <Link to={'/doctor-admin/login'} className={navbarStyles.mobileDoctorAdminButton} onClick={()=>setIsOpen(false)}>
+                            Doctor Admin
+                        </Link>
                          <div className={navbarStyles.mobileLoginContainer}>
                              {
                                 !isSignedIn ? 

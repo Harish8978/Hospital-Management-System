@@ -1,0 +1,56 @@
+import axios from 'axios';
+import React, { useEffect } from 'react'
+import { useNavigate, useParams } from 'react-router-dom';
+
+
+const API_BASE = "http://localhost:4000";
+
+const VerifyServicePayment = () => {
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    useEffect(()=>{
+        let cancel = false;
+        const verifyServicePayment = async()=>{
+            const params = new URLSearchParams(location.search || "")
+            const sessionId = params.get("session_id");
+
+            if(location.pathname === "/service-appointment/cancel"){
+                if(!cancelled) navigate("/appointments?service_payment=Cancelled",{replace:true});
+                return;
+            }
+            if(!sessionId){
+              if(!cancelled) {
+                    navigate("/appointments?service_payment=Failed",{replace:true});
+                    return
+                }   
+            }
+            try {
+                    const res = await axios.get(`${API_BASE}/api/service-appointments/confirm`,{
+                        params:{sessionId},
+                        timeout:15000,
+                    });
+                    if(cancelled) return ;
+                    if(res.data?.success){
+                        navigate("/appointments?service_payment=Paid",{replace:true})
+                    }else{
+                        navigate("/appointments?service_payment=Failed",{replace:true});
+                    }
+                } catch (error) {
+                    console.error("Service Payment Verification Failed",error);
+                    if(!cancelled){
+                        navigate("/appointments?service_payment=Failed",{replace:true});
+                    }
+                        
+                }
+        }
+        verifiedPayment()
+        return ()=>{
+            cancelled = true;
+        };
+    },[location,navigate])
+
+  return null;
+}
+
+export default VerifyServicePayment

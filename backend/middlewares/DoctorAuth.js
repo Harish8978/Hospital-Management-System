@@ -5,9 +5,9 @@ import Doctor from "../models/Doctor.js"
 const JWT_SECRET = process.env.JWT_SECRET
 
 export default async function doctorAuth(req,res,next){
-    const authHeader = req.header.authorization
+    const authHeader = req.headers.authorization
     // Check token
-    if(!authHeader || authHeader.startsWith("Bearer ")){
+    if(!authHeader || !authHeader.startsWith("Bearer ")){
         return res.status(401).json({
             success:false,
               message:"That is Doctor not authorized or token not available"

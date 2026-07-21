@@ -32,7 +32,7 @@ const doctorSchema = new mongoose.Schema(
         fee: { type: Number, default: 0 },
         availability: {
         type: String,
-            enum: ["Available", "Unavailable"],
+            enum: ["Available", "UnAvailable"],
             default: "Available",
             },
 

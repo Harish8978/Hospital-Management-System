@@ -80,7 +80,7 @@ export async function createDoctor(req, res) {
     let imagePublicId = body.imagePublicId || null; 
 
     if (req.file?.path) {
-      const uploaded = await uplodtoCloudinary(req.file.path, "doctors");
+      const uploaded = await uploadtoCloudinary(req.file.path, "doctors");
       imageUrl = uploaded?.secure_url || uploaded?.url || imageUrl;
       imagePublicId = uploaded?.public_id || uploaded?.publicId || imagePublicId;
     }
@@ -261,7 +261,7 @@ export async function updateDoctor(req, res) {
     if (!existing) return res.status(404).json({ success: false, message: "Doctor not found" });
 
     if (req.file?.path) {
-      const uploaded = await uplodtoCloudinary(req.file.path, "doctors");
+      const uploaded = await uploadtoCloudinary(req.file.path, "doctors");
       if (uploaded) {
         const previousPublicId = existing.imagePublicId;
         existing.imageUrl = uploaded.secure_url || uploaded.url || existing.imageUrl;
